@@ -13,10 +13,10 @@ eureka:
 
 authorization:
   jwt:
-    private-key-path: "classpath:jwt.key"
-    public-key-path: "classpath:jwt.key.pub"
+    private-key-path: ${JWT_PRIVATE_KEY_PATH:file:/app/secrets/jwt.key}
+    public-key-path: ${JWT_PUBLIC_KEY_PATH:file:/app/secrets/jwt.key.pub}
     expiration:
-      days: 7
+      days: ${JWT_EXPIRATION_DAYS:7}
 
 spring:
   datasource:

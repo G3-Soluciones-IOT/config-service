@@ -7,4 +7,4 @@ eureka:
     fetch-registry: false
   instance:
     hostname: eureka-service
-    prefer-ip-address: true
+    prefer-ip-address: false
