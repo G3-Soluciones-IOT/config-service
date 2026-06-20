@@ -9,14 +9,14 @@ eureka:
     fetch-registry: true
   instance:
     prefer-ip-address: false
-    hostname: chat-service
+    hostname: communication-service
 
 spring:
   data:
     mongodb:
-      host: ${MONGO_HOST:localhost}
+      host: ${MONGO_HOST:communication-service-mongodb}
       port: ${MONGO_PORT:27017}
-      database: ${MONGO_DATABASE:chat_db}
+      database: ${MONGO_DATABASE:communication_db}
       username: ${MONGO_USER:}
       password: ${MONGO_PASSWORD:}
-      authentication-database: ${MONGO_AUTH_DB:chat_db}
+      authentication-database: ${MONGO_AUTH_DB:admin}

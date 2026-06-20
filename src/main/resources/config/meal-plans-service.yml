@@ -9,7 +9,7 @@ eureka:
     fetch-registry: true
   instance:
     prefer-ip-address: false
-    hostname: mealplan-service
+    hostname: meal-plans-service
 
 spring:
   security:
