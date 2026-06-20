@@ -29,3 +29,9 @@ spring:
       naming:
         physical-strategy: pe.edu.upc.tracking_service.shared.infrastructure.persistence.jpa.configuration.strategy.SnakeCaseWithPluralizedTablePhysicalNamingStrategy
     show-sql: true
+
+services:
+  profiles:
+    base-url: http://profiles-service
+  recipes:
+    base-url: http://recipes-service
