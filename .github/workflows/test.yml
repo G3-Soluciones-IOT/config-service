@@ -21,8 +21,10 @@ jobs:
       - name: Setup gcloud
         uses: google-github-actions/setup-gcloud@v2
 
-      - name: Verify identity
+      - name: Verify identity and repository access
         run: |
           gcloud auth list
           gcloud config set project jameofit
-          gcloud artifacts repositories list --location=southamerica-west1
+          gcloud artifacts repositories describe jameofit-docker \
+            --project=jameofit \
+            --location=southamerica-west1
