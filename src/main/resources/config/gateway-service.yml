@@ -20,119 +20,121 @@ spring:
 
   cloud:
     gateway:
-      global-cors:
-        add-to-simple-url-handler-mapping: true
-        cors-configurations:
-          "[/**]":
-            allowedOriginPatterns:
-              - "http://localhost:*"
-              - "http://127.0.0.1:*"
-              - "http://10.0.2.2:*"
-              - "http://192.168.*.*"
-              - "https://*.web.app"
-              - "https://*.firebaseapp.com"
-              - "capacitor://localhost" # Capacitor apps
-              - "ionic://localhost" # Ionic apps
-              - "http://localhost" # Android emulador/desarrollo
-            allowedMethods:
-              - GET
-              - POST
-              - PUT
-              - PATCH
-              - DELETE
-              - OPTIONS
-              - HEAD
-            allowedHeaders:
-              - "*"
-              - "Authorization"
-              - "Content-Type"
-              - "Accept"
-              - "Origin"
-              - "X-Requested-With"
-              - "Access-Control-Request-Method"
-              - "Access-Control-Request-Headers"
-            exposedHeaders:
-              - "*"
-              - "Authorization"
-              - "Content-Type"
-              - "X-Total-Count"
-            allowCredentials: true
-            maxAge: 3600
-      discovery:
-        locator:
-          enabled: true
-          lower-case-service-id: true
-      routes:
-        - id: iam-service-route
-          uri: lb://iam-service
-          predicates:
-            - Path=/iam-service/**,/api/v1/authentication/**,/api/v1/roles/**,/api/v1/users/**,/api/v1/jwks/**
-          filters:
-            - RewritePath=/iam-service/?(?<segment>.*), /$\{segment}
+      server:
+        webflux:
+          globalcors:
+            add-to-simple-url-handler-mapping: true
+            cors-configurations:
+              "[/**]":
+                allowedOriginPatterns:
+                  - "http://localhost:*"
+                  - "http://127.0.0.1:*"
+                  - "http://10.0.2.2:*"
+                  - "http://192.168.*.*"
+                  - "https://*.web.app"
+                  - "https://*.firebaseapp.com"
+                  - "capacitor://localhost" # Capacitor apps
+                  - "ionic://localhost" # Ionic apps
+                  - "http://localhost" # Android emulador/desarrollo
+                allowedMethods:
+                  - GET
+                  - POST
+                  - PUT
+                  - PATCH
+                  - DELETE
+                  - OPTIONS
+                  - HEAD
+                allowedHeaders:
+                  - "*"
+                  - "Authorization"
+                  - "Content-Type"
+                  - "Accept"
+                  - "Origin"
+                  - "X-Requested-With"
+                  - "Access-Control-Request-Method"
+                  - "Access-Control-Request-Headers"
+                exposedHeaders:
+                  - "*"
+                  - "Authorization"
+                  - "Content-Type"
+                  - "X-Total-Count"
+                allowCredentials: true
+                maxAge: 3600
+          discovery:
+            locator:
+              enabled: true
+              lower-case-service-id: true
+          routes:
+            - id: iam-service-route
+              uri: lb://iam-service
+              predicates:
+                - Path=/iam-service/**,/api/v1/authentication/**,/api/v1/roles/**,/api/v1/users/**,/api/v1/jwks/**
+              filters:
+                - RewritePath=/iam-service/?(?<segment>.*), /$\{segment}
 
-        - id: communication-service-route
-          uri: lb://communication-service
-          predicates:
-            - Path=/communication-service/**,/api/v1/chat/**,/api/v1/messages/**
-          filters:
-            - RewritePath=/communication-service/?(?<segment>.*), /$\{segment}
+            - id: communication-service-route
+              uri: lb://communication-service
+              predicates:
+                - Path=/communication-service/**,/api/v1/chat/**,/api/v1/messages/**
+              filters:
+                - RewritePath=/communication-service/?(?<segment>.*), /$\{segment}
 
-        - id: communication-service-websocket-route
-          uri: lb://communication-service
-          predicates:
-            - Path=/ws/**
-          metadata:
-            connect-timeout: 30000
-            response-timeout: 30000
+            - id: communication-service-websocket-route
+              uri: lb://communication-service
+              predicates:
+                - Path=/ws/**
+              metadata:
+                connect-timeout: 30000
+                response-timeout: 30000
 
-        - id: goals-service-route
-          uri: lb://goals-service
-          predicates:
-            - Path=/goals-service/**,/api/v1/goals/**
-          filters:
-            - RewritePath=/goals-service/?(?<segment>.*), /$\{segment}
+            - id: goals-service-route
+              uri: lb://goals-service
+              predicates:
+                - Path=/goals-service/**,/api/v1/goals/**
+              filters:
+                - RewritePath=/goals-service/?(?<segment>.*), /$\{segment}
 
-        - id: meal-plans-service-route
-          uri: lb://meal-plans-service
-          predicates:
-            - Path=/meal-plans-service/**,/api/v1/meal-plan/**
-          filters:
-            - RewritePath=/meal-plans-service/?(?<segment>.*), /$\{segment}
+            - id: meal-plans-service-route
+              uri: lb://meal-plans-service
+              predicates:
+                - Path=/meal-plans-service/**,/api/v1/meal-plan/**
+              filters:
+                - RewritePath=/meal-plans-service/?(?<segment>.*), /$\{segment}
 
-        - id: nutritionist-service-route
-          uri: lb://nutritionist-service
-          predicates:
-            - Path=/nutritionist-service/**,/api/v1/nutritionists/**,/api/v1/nutritionist-patients/**
-          filters:
-            - RewritePath=/nutritionist-service/?(?<segment>.*), /$\{segment}
+            - id: nutritionist-service-route
+              uri: lb://nutritionist-service
+              predicates:
+                - Path=/nutritionist-service/**,/api/v1/nutritionists/**,/api/v1/nutritionist-patients/**
+              filters:
+                - RewritePath=/nutritionist-service/?(?<segment>.*), /$\{segment}
 
-        - id: profiles-service-route
-          uri: lb://profiles-service
-          predicates:
-            - Path=/profiles-service/**,/api/v1/user-profiles/**,/api/v1/profiles/**,/api/v1/objectives/**,/api/v1/allergies/**,/api/v1/activity-levels/**
-          filters:
-            - RewritePath=/profiles-service/?(?<segment>.*), /$\{segment}
+            - id: profiles-service-route
+              uri: lb://profiles-service
+              predicates:
+                - Path=/profiles-service/**,/api/v1/user-profiles/**,/api/v1/profiles/**,/api/v1/objectives/**,/api/v1/allergies/**,/api/v1/activity-levels/**
+              filters:
+                - RewritePath=/profiles-service/?(?<segment>.*), /$\{segment}
 
-        - id: recipes-service-route
-          uri: lb://recipes-service
-          predicates:
-            - Path=/recipes-service/**,/api/v1/recipes/**,/api/v1/recipe-types/**,/api/v1/ingredients/**,/api/v1/favorite-recipes/**,/api/v1/categories/**
-          filters:
-            - RewritePath=/recipes-service/?(?<segment>.*), /$\{segment}
+            - id: recipes-service-route
+              uri: lb://recipes-service
+              predicates:
+                - Path=/recipes-service/**,/api/v1/recipes/**,/api/v1/recipe-types/**,/api/v1/ingredients/**,/api/v1/favorite-recipes/**,/api/v1/categories/**
+              filters:
+                - RewritePath=/recipes-service/?(?<segment>.*), /$\{segment}
 
-        - id: recommendations-service-route
-          uri: lb://recommendations-service
-          predicates:
-            - Path=/recommendations-service/**,/api/v1/recommendations/**,/api/v1/recommendation-templates/**
-          filters:
-            - RewritePath=/recommendations-service/?(?<segment>.*), /$\{segment}
+            - id: recommendations-service-route
+              uri: lb://recommendations-service
+              predicates:
+                - Path=/recommendations-service/**,/api/v1/recommendations/**,/api/v1/recommendation-templates/**
+              filters:
+                - RewritePath=/recommendations-service/?(?<segment>.*), /$\{segment}
 
-        - id: tracking-service-route
-          uri: lb://tracking-service
-          predicates:
-            - Path=/tracking-service/**,/api/v1/tracking-goals/**,/api/v1/tracking/**,/api/v1/meal-plan-entries/**,/api/v1/macronutrients/**
-          filters:
-            - RewritePath=/tracking-service/?(?<segment>.*), /$\{segment}
+            - id: tracking-service-route
+              uri: lb://tracking-service
+              predicates:
+                - Path=/tracking-service/**,/api/v1/tracking-goals/**,/api/v1/tracking/**,/api/v1/meal-plan-entries/**,/api/v1/macronutrients/**
+              filters:
+                - RewritePath=/tracking-service/?(?<segment>.*), /$\{segment}
 
 springdoc:
   swagger-ui:
