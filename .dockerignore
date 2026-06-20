@@ -4,6 +4,8 @@
 .vscode/
 
 target/
+!target/
+!target/*.jar
 logs/
 *.log
 
