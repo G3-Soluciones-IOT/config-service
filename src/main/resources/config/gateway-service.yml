@@ -68,13 +68,13 @@ spring:
           predicates:
             - Path=/iam-service/**,/api/v1/authentication/**,/api/v1/roles/**,/api/v1/users/**,/api/v1/jwks/**
 
-        - id: chat-service-route
-          uri: lb://chat-service
+        - id: communication-service-route
+          uri: lb://communication-service
           predicates:
-            - Path=/chat-service/**,/api/v1/chat/**,/api/v1/messages/**
+            - Path=/communication-service/**,/api/v1/chat/**,/api/v1/messages/**
 
-        - id: chat-service-websocket-route
-          uri: lb://chat-service
+        - id: communication-service-websocket-route
+          uri: lb://communication-service
           predicates:
             - Path=/ws/**
           metadata:
@@ -86,10 +86,10 @@ spring:
           predicates:
             - Path=/goals-service/**,/api/v1/goals/**
 
-        - id: mealplan-service-route
-          uri: lb://mealplan-service
+        - id: meal-plans-service-route
+          uri: lb://meal-plans-service
           predicates:
-            - Path=/mealplan-service/**,/api/v1/meal-plan/**
+            - Path=/meal-plans-service/**,/api/v1/meal-plan/**
 
         - id: nutritionist-service-route
           uri: lb://nutritionist-service
@@ -124,12 +124,12 @@ springdoc:
     urls:
       - name: iam-service
         url: /iam-service/v3/api-docs
-      - name: chat-service
-        url: /chat-service/v3/api-docs
+      - name: communication-service
+        url: /communication-service/v3/api-docs
       - name: goals-service
         url: /goals-service/v3/api-docs
-      - name: mealplan-service
-        url: /mealplan-service/v3/api-docs
+      - name: meal-plans-service
+        url: /meal-plans-service/v3/api-docs
       - name: nutritionist-service
         url: /nutritionist-service/v3/api-docs
       - name: profiles-service
