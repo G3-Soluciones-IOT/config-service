@@ -23,4 +23,4 @@ jobs:
       service_account: gha-artifact-writer@jameofit.iam.gserviceaccount.com
       dockerfile_path: Dockerfile
       build_context: .
-      push_latest: true
+      push_latest: false

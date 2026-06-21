@@ -2,16 +2,11 @@
 .github/
 .idea/
 .vscode/
-
 target/
-!target/
-!target/*.jar
 logs/
 *.log
-
 .env
 .env.*
-
 .DS_Store
 Thumbs.db
 Desktop.ini
