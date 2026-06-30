@@ -1,0 +1,4 @@
+documentation:
+  openapi:
+    server-url: ${PUBLIC_API_BASE_URL:https://jameofit.duckdns.org}
+    server-description: Public Gateway
