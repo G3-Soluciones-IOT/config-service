@@ -11,12 +11,24 @@ eureka:
     prefer-ip-address: false
     hostname: gateway-service
 
+auth0:
+  audience: ${AUTH0_AUDIENCE}
+  domain: ${AUTH0_DOMAIN:}
+  permissions-claim: ${AUTH0_PERMISSIONS_CLAIM:permissions}
+  scope-claim: ${AUTH0_SCOPE_CLAIM:scope}
+
+legacy:
+  jwt:
+    enabled: ${LEGACY_JWT_ENABLED:true}
+    issuer: ${LEGACY_JWT_ISSUER:${JWT_ISSUER:iam-service}}
+    jwk-set-uri: ${LEGACY_JWT_JWK_SET_URI:http://iam-service:8081/api/v1/jwks/.well-known/jwks.json}
+
 spring:
   security:
     oauth2:
       resource-server:
         jwt:
-          jwk-set-uri: "http://iam-service:8081/api/v1/jwks/.well-known/jwks.json"
+          issuer-uri: ${AUTH0_ISSUER_URI:https://auth0.local/}
 
   cloud:
     gateway:
@@ -108,6 +120,20 @@ spring:
               filters:
                 - RewritePath=/nutritionist-service/?(?<segment>.*), /$\{segment}
 
+            - id: nutrition-ai-service-route
+              uri: lb://nutrition-ai-service
+              predicates:
+                - Path=/nutrition-ai-service/**,/api/v1/ai/**
+              filters:
+                - RewritePath=/nutrition-ai-service/?(?<segment>.*), /$\{segment}
+
+            - id: iot-service-route
+              uri: lb://iot-service
+              predicates:
+                - Path=/iot-service/**,/api/v1/iot/**
+              filters:
+                - RewritePath=/iot-service/?(?<segment>.*), /$\{segment}
+
             - id: profiles-service-route
               uri: lb://profiles-service
               predicates:
@@ -152,6 +178,10 @@ springdoc:
         url: /meal-plans-service/v3/api-docs
       - name: nutritionist-service
         url: /nutritionist-service/v3/api-docs
+      - name: nutrition-ai-service
+        url: /nutrition-ai-service/v3/api-docs
+      - name: iot-service
+        url: /iot-service/v3/api-docs
       - name: profiles-service
         url: /profiles-service/v3/api-docs
       - name: recipes-service

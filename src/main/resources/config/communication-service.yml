@@ -11,6 +11,23 @@ eureka:
     prefer-ip-address: false
     hostname: communication-service
 
+auth0:
+  issuer-uri: ${AUTH0_ISSUER_URI:https://auth0.local/}
+  audience: ${AUTH0_AUDIENCE:jameofit-api}
+
+legacy:
+  jwt:
+    enabled: ${LEGACY_JWT_ENABLED:true}
+    issuer: ${LEGACY_JWT_ISSUER:${JWT_ISSUER:iam-service}}
+    jwk-set-uri: ${LEGACY_JWT_JWK_SET_URI:http://iam-service:8081/api/v1/jwks/.well-known/jwks.json}
+
 spring:
+  security:
+    oauth2:
+      resource-server:
+        jwt:
+          issuer-uri: ${AUTH0_ISSUER_URI:https://auth0.local/}
+          jwk-set-uri: ${LEGACY_JWT_JWK_SET_URI:http://iam-service:8081/api/v1/jwks/.well-known/jwks.json}
+
   mongodb:
     uri: ${SPRING_MONGODB_URI:mongodb://${MONGO_USER}:${MONGO_PASSWORD}@${MONGO_HOST:communication-service-mongodb}:${MONGO_PORT:27017}/${MONGO_DATABASE:communication_db}?authSource=${MONGO_AUTH_DB:admin}}

@@ -1,7 +1,15 @@
-documentation:
-  openapi:
-    server-url: ${PUBLIC_API_BASE_URL:https://jameofit.duckdns.org}
-    server-description: Public Gateway
+server:
+  port: 8091
+
+eureka:
+  client:
+    service-url:
+      defaultZone: http://eureka-service:8761/eureka/
+    register-with-eureka: true
+    fetch-registry: true
+  instance:
+    prefer-ip-address: false
+    hostname: nutrition-ai-service
 
 auth0:
   issuer-uri: ${AUTH0_ISSUER_URI:https://auth0.local/}
@@ -20,3 +28,8 @@ spring:
         jwt:
           issuer-uri: ${AUTH0_ISSUER_URI:https://auth0.local/}
           jwk-set-uri: ${LEGACY_JWT_JWK_SET_URI:http://iam-service:8081/api/v1/jwks/.well-known/jwks.json}
+
+documentation:
+  openapi:
+    server-url: ${PUBLIC_API_BASE_URL:http://localhost:8080}
+    server-description: Public Gateway

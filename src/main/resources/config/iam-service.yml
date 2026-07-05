@@ -12,6 +12,10 @@ eureka:
     hostname: iam-service
 
 authorization:
+  legacy-jwt:
+    enabled: ${LEGACY_JWT_ENABLED:true}
+  legacy-jwks:
+    enabled: ${LEGACY_JWKS_ENABLED:true}
   jwt:
     private-key: ${JWT_PRIVATE_KEY:}
     public-key: ${JWT_PUBLIC_KEY:}
@@ -19,6 +23,10 @@ authorization:
     public-key-path: ${JWT_PUBLIC_KEY_PATH:}
     expiration:
       days: ${JWT_EXPIRATION_DAYS:7}
+
+auth0:
+  issuer-uri: ${AUTH0_ISSUER_URI:https://auth0.local/}
+  audience: ${AUTH0_AUDIENCE:jameofit-api}
 
 spring:
   datasource:

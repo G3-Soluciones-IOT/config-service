@@ -11,12 +11,23 @@ eureka:
     prefer-ip-address: false
     hostname: recipes-service
 
+auth0:
+  issuer-uri: ${AUTH0_ISSUER_URI:https://auth0.local/}
+  audience: ${AUTH0_AUDIENCE:jameofit-api}
+
+legacy:
+  jwt:
+    enabled: ${LEGACY_JWT_ENABLED:true}
+    issuer: ${LEGACY_JWT_ISSUER:${JWT_ISSUER:iam-service}}
+    jwk-set-uri: ${LEGACY_JWT_JWK_SET_URI:http://iam-service:8081/api/v1/jwks/.well-known/jwks.json}
+
 spring:
   security:
     oauth2:
       resource-server:
         jwt:
-          jwk-set-uri: "http://iam-service:8081/api/v1/jwks/.well-known/jwks.json"
+          issuer-uri: ${AUTH0_ISSUER_URI:https://auth0.local/}
+          jwk-set-uri: ${LEGACY_JWT_JWK_SET_URI:http://iam-service:8081/api/v1/jwks/.well-known/jwks.json}
 
   datasource:
     url: jdbc:postgresql://${POSTGRES_HOST}:${POSTGRES_PORT}/${POSTGRES_DATABASE}
