@@ -1,0 +1,51 @@
+server:
+  port: 8092
+
+eureka:
+  client:
+    service-url:
+      defaultZone: http://eureka-service:8761/eureka/
+    register-with-eureka: true
+    fetch-registry: true
+  instance:
+    prefer-ip-address: false
+    hostname: payments-service
+
+auth0:
+  issuer-uri: ${AUTH0_ISSUER_URI:https://auth0.local/}
+  audience: ${AUTH0_AUDIENCE:jameofit-api}
+
+legacy:
+  jwt:
+    enabled: ${LEGACY_JWT_ENABLED:true}
+    issuer: ${LEGACY_JWT_ISSUER:${JWT_ISSUER:iam-service}}
+    jwk-set-uri: ${LEGACY_JWT_JWK_SET_URI:http://iam-service:8081/api/v1/jwks/.well-known/jwks.json}
+
+spring:
+  security:
+    oauth2:
+      resource-server:
+        jwt:
+          issuer-uri: ${AUTH0_ISSUER_URI:https://auth0.local/}
+          jwk-set-uri: ${LEGACY_JWT_JWK_SET_URI:http://iam-service:8081/api/v1/jwks/.well-known/jwks.json}
+
+  datasource:
+    url: jdbc:postgresql://${POSTGRES_HOST}:${POSTGRES_PORT}/${POSTGRES_DATABASE}
+    username: ${POSTGRES_USER:postgres}
+    password: ${POSTGRES_PASSWORD:password}
+    driver-class-name: org.postgresql.Driver
+  jpa:
+    hibernate:
+      ddl-auto: update
+      naming:
+        physical-strategy: pe.edu.upc.payments_service.shared.infrastructure.persistence.jpa.configuration.strategy.SnakeCaseWithPluralizedTablePhysicalNamingStrategy
+    show-sql: true
+
+stripe:
+  secret-key: ${STRIPE_SECRET_KEY:}
+  webhook-secret: ${STRIPE_WEBHOOK_SECRET:}
+
+documentation:
+  openapi:
+    server-url: ${PUBLIC_API_BASE_URL:http://localhost:8080}
+    server-description: Public Gateway
