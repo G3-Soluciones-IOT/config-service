@@ -43,6 +43,7 @@ spring:
                   - "http://127.0.0.1:*"
                   - "http://10.0.2.2:*"
                   - "http://192.168.*.*"
+                  - "https://jameofit.duckdns.org"
                   - "https://jameofit.vercel.app"
                   - "https://*.web.app"
                   - "https://*.firebaseapp.com"
