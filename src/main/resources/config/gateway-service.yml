@@ -178,8 +178,6 @@ springdoc:
     urls:
       - name: iam-service
         url: /iam-service/v3/api-docs
-      - name: communication-service
-        url: /communication-service/v3/api-docs
       - name: goals-service
         url: /goals-service/v3/api-docs
       - name: meal-plans-service
@@ -196,7 +194,5 @@ springdoc:
         url: /profiles-service/v3/api-docs
       - name: recipes-service
         url: /recipes-service/v3/api-docs
-      - name: recommendations-service
-        url: /recommendations-service/v3/api-docs
       - name: tracking-service
         url: /tracking-service/v3/api-docs
