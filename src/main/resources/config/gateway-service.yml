@@ -127,6 +127,13 @@ spring:
               filters:
                 - RewritePath=/nutrition-ai-service/?(?<segment>.*), /$\{segment}
 
+            - id: payments-service-route
+              uri: lb://payments-service
+              predicates:
+                - Path=/payments-service/**,/api/v1/subscriptions/**,/api/v1/invoices/**,/api/v1/stripe-webhooks/**
+              filters:
+                - RewritePath=/payments-service/?(?<segment>.*), /$\{segment}
+
             - id: iot-service-route
               uri: lb://iot-service
               predicates:
@@ -180,6 +187,8 @@ springdoc:
         url: /nutritionist-service/v3/api-docs
       - name: nutrition-ai-service
         url: /nutrition-ai-service/v3/api-docs
+      - name: payments-service
+        url: /payments-service/v3/api-docs
       - name: iot-service
         url: /iot-service/v3/api-docs
       - name: profiles-service

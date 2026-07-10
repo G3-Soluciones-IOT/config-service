@@ -1,0 +1,22 @@
+documentation:
+  openapi:
+    server-url: ${PUBLIC_API_BASE_URL:https://jameofit.duckdns.org}
+    server-description: Public Gateway
+
+auth0:
+  issuer-uri: ${AUTH0_ISSUER_URI:https://auth0.local/}
+  audience: ${AUTH0_AUDIENCE:jameofit-api}
+
+legacy:
+  jwt:
+    enabled: ${LEGACY_JWT_ENABLED:true}
+    issuer: ${LEGACY_JWT_ISSUER:${JWT_ISSUER:iam-service}}
+    jwk-set-uri: ${LEGACY_JWT_JWK_SET_URI:http://iam-service:8081/api/v1/jwks/.well-known/jwks.json}
+
+spring:
+  security:
+    oauth2:
+      resource-server:
+        jwt:
+          issuer-uri: ${AUTH0_ISSUER_URI:https://auth0.local/}
+          jwk-set-uri: ${LEGACY_JWT_JWK_SET_URI:http://iam-service:8081/api/v1/jwks/.well-known/jwks.json}
