@@ -118,7 +118,7 @@ spring:
             - id: nutritionist-service-route
               uri: lb://nutritionist-service
               predicates:
-                - Path=/nutritionist-service/**,/api/v1/nutritionists/**,/api/v1/nutritionist-patients/**
+                - Path=/nutritionist-service/**,/api/v1/nutritionists/**,/api/v1/nutritionist-patients/**,/api/v1/appointments/**
               filters:
                 - RewritePath=/nutritionist-service/?(?<segment>.*), /$\{segment}
 
