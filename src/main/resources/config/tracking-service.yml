@@ -53,3 +53,8 @@ services:
     base-url: http://profiles-service
   recipes:
     base-url: http://recipes-service
+
+documentation:
+  openapi:
+    server-url: ${PUBLIC_API_BASE_URL:http://localhost:8080}
+    server-description: Public Gateway
